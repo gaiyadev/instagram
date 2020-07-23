@@ -1,5 +1,4 @@
 const User = require('../model/user');
-const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
@@ -69,7 +68,7 @@ exports.sign_up = (req, res) => {
 
         User.newUser(newUser, (err, user) => {
             if (err) return err;
-            return res.json({ message: "Account created successfully" });
+            return res.json({ message: "Account created successfully", user });
         });
     }).catch(err => {
         console.log(err);
