@@ -27,12 +27,8 @@ const UserSchema = new mongoose.Schema({
     }
 });
 
-
 const User = mongoose.model('User', UserSchema);
 module.exports = User;
-
-
-
 
 module.exports.newUser = (newUser, callback) => {
     bcrypt.hash(newUser.password, 10, (err, hash) => {
