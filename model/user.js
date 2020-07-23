@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
-const db = require('../database/db');
+require('../database/db');
 const bcrypt = require('bcrypt');
 
 
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        min: 3,
+        max: 50
     },
     email: {
         type: String,
@@ -15,7 +17,9 @@ const UserSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        min: 4,
+        max: 540
     },
     reg_date: {
         type: Date,
@@ -26,6 +30,8 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema);
 module.exports = User;
+
+
 
 
 module.exports.newUser = (newUser, callback) => {
