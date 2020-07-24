@@ -9,6 +9,7 @@ exports.create_post = (req, res) => {
     const { title, body } = req.body;
     if (!title || !body) return res.status(400).json({ error: 'Please all fields are required' });
 
+    req.user.password = undefined;
     const post = new Post({
         title: title,
         body: body,
