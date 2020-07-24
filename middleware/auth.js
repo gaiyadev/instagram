@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
         const { _id } = payload;
         User.findById(_id).then(userId => {
             req.user = userId
+            next();
         });
-        next();
     });
 }
