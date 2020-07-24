@@ -1,5 +1,6 @@
 const UserController = require('../../controller/userController');
 var express = require('express');
+const auth = require('../../middleware/auth');
 var router = express.Router();
 
 /*  @route     POST api/users/signin
@@ -13,5 +14,9 @@ router.post('/signin', UserController.sign_in);
     @access    Public
  */
 router.post('/signup', UserController.sign_up);
+
+router.get('/protected', auth, (req, res) => {
+  res.send('hello user');
+})
 
 module.exports = router;
