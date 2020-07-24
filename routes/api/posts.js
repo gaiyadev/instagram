@@ -15,5 +15,12 @@ router.post('/', auth, PostController.create_post);
  */
 router.get('/', PostController.get_posts);
 
+/*  @route     POST api/posts/myPosts
+    @desc      Get All post for a single user
+    @access    Private
+ */
+router.get('/mypost', auth, PostController.my_posts);
+
+
 
 module.exports = router;

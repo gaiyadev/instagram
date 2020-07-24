@@ -28,5 +28,18 @@ exports.create_post = (req, res) => {
  * @param {*} res
  */
 exports.get_posts = (req, res) => {
+    Post.find().populate('postedBy', "_id name").then(posts => {
+        return res.json({ posts });
+    }).catch(err => console.log(err))
+}
 
+/**
+ * Get all post for a single user
+ * @param {*} res 
+ * @param {*} res 
+ */
+exports.my_posts = (req, res) => {
+    Post.find({ postedBy: req.user._id }).populate('postedBy', "_id name").then(mypost => {
+        return res.json({ mypost });
+    }).catch(err => console.log(err));
 }
