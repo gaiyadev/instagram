@@ -24,16 +24,22 @@ exports.sign_in = (req, res) => {
                 return res.status(400).json({ error: "Email or Password is invalid" });
             } else {
                 // success login ... Generating jwt for auth
-                jwt.sign({ _id: user._id, email: user.email, name: user.name }, config.get('JWT_SECRET_KEY'), {
-                    expiresIn: 3600
-                }, (err, token) => {
-                    if (err) throw err;
-                    return res.status(200).json({
-                        token,
-                        user: { _id: user._id, email: user.email },
-                        message: "Signin successfully"
+                jwt.sign({ _id: user._id, email: user.email, name: user.name },
+                    config.get('JWT_SECRET_KEY'),
+                    {
+                        expiresIn: 3600
+                    }, (err, token) => {
+                        if (err) throw err;
+                        return res.json({
+                            token,
+                            user: {
+                                _id: user._id,
+                                email: user.email,
+                                name: user.name
+                            },
+                            message: "Sign in successfully"
+                        });
                     });
-                });
             }
         })
     });
@@ -51,9 +57,13 @@ exports.sign_up = (req, res) => {
             error: 'Please all fields are required'
         });
     }
-
+    if (name.length <= 3 || password.length <= 4) {
+        return res.status(400).json({
+            error: 'Please all fields muts be atleast more than 3 characters'
+        });
+    }
     User.findOne({ email: email }).then(user => {
-        if (user) return res.status(400).json({ message: 'User already exist' });
+        if (user) return res.status(400).json({ error: 'User already exist' });
         const newUser = new User({
             name: name,
             email: email,
