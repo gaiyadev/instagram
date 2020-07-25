@@ -7,8 +7,8 @@ const Post = require('../model/post');
  */
 exports.create_post = (req, res) => {
     const { title, body, photo } = req.body;
-    if (!title || !body || photo) return res.status(400).json({ error: 'Please all fields are required' });
-
+    if (!title || !body || !photo) return res.status(400).json({ error: 'Please all fields are required' });
+    console.log(title, body, photo)
     req.user.password = undefined;
     const post = new Post({
         title: title,
