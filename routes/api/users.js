@@ -1,6 +1,6 @@
 const UserController = require('../../controller/userController');
 var express = require('express');
-// const auth = require('../../middleware/auth');
+const auth = require('../../middleware/auth');
 var router = express.Router();
 
 /*  @route     POST api/users/signin
@@ -14,6 +14,12 @@ router.post('/signin', UserController.sign_in);
     @access    Public
  */
 router.post('/signup', UserController.sign_up);
+
+/*  @route     GET api/users/:id
+    @desc      View another user profiler
+    @access    Public
+ */
+router.get('/:id', auth, UserController.view_other_users_profile);
 
 
 module.exports = router;

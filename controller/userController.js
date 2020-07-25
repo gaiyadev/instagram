@@ -1,4 +1,5 @@
 const User = require('../model/user');
+const Post = require('../model/post');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
@@ -78,3 +79,27 @@ exports.sign_up = (req, res) => {
         console.log(err);
     });
 };
+
+
+exports.view_other_users_profile = (req, res) => {
+    User.findOne({ _id: req.params.id }).select("-password")
+        .then(user => {
+            Post.find({ postedBy: req.params.id }).populate("postedBy", "_id name")
+                .exec((err, post) => {
+                    if (err) {
+                        return res.status(422).json({
+                            error: err
+                        });
+                    }
+                    return res.json({
+                        user,
+                        post
+                    });
+                })
+
+        }).catch(err => {
+            return res.status(404).json({
+                error: 'User not found'
+            })
+        })
+}
