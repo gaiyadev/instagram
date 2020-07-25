@@ -44,3 +44,36 @@ exports.my_posts = (req, res) => {
         return res.json({ mypost });
     }).catch(err => console.log(err));
 }
+
+/**
+ * likes a post
+ * @param {*} req 
+ * @param {*} res 
+ */
+exports.like = (req, res) => {
+    Post.findByIdAndUpdate(req.body.postId, {
+        $push: { likes: req.user._id },
+    }, {
+        new: true
+    }).exec((err, result) => {
+        if (err) return res.status(422).json({ error: err })
+        return res.json({ result });
+    })
+}
+
+/**
+ * Unlike a post
+ * @param {*} req 
+ * @param {*} res 
+ */
+
+exports.unlike = (req, res) => {
+    Post.findByIdAndUpdate(req.body.postId, {
+        $pull: { likes: req.user._id },
+    }, {
+        new: true
+    }).exec((err, result) => {
+        if (err) return res.status(422).json({ error: err })
+        return res.json({ result });
+    })
+}

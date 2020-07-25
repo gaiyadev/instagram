@@ -1,6 +1,7 @@
 const PostController = require('../../controller/postController');
 var express = require('express');
 const auth = require('../../middleware/auth');
+const Post = require('../../model/post');
 var router = express.Router();
 
 /*  @route     POST api/posts/
@@ -21,6 +22,16 @@ router.get('/', auth, PostController.get_posts);
  */
 router.get('/myposts', auth, PostController.my_posts);
 
+/*  @route     POST api/posts/likes
+    @desc     Like a post
+    @access    Private
+ */
+router.put('/like', auth, PostController.like);
 
+/*  @route     POST api/posts/unlikes
+    @desc     Unlike a post
+    @access    Private
+ */
+router.put('/unlike', auth, PostController.unlike);
 
 module.exports = router;
