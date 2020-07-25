@@ -103,3 +103,55 @@ exports.view_other_users_profile = (req, res) => {
             })
         })
 }
+
+/**
+ * following
+ * @param {*} req 
+ * @param {*} res 
+ */
+exports.follow = (req, res) => {
+    User.findByIdAndUpdate(req.body.followId, {
+        $push: { followers: req.user._id }
+    }, {
+        new: true
+    }, (err, result) => {
+        if (err) {
+            return res.status(422).json({ error: err })
+        }
+        User.findByIdAndUpdate(req.user._id, {
+            $push: { following: req.body.followId }
+        }, {
+            new: true
+        }).then(result => {
+            return res.json({
+                result
+            });
+        }).catch(err => {
+            return res.status(422).json({ error: err })
+        })
+    })
+}
+
+
+exports.unFollow = (req, res) => {
+    User.findByIdAndUpdate(req.body.unfollowId, {
+        $push: { followers: req.user._id }
+    }, {
+        new: true
+    }, (err, result) => {
+        if (err) {
+            return res.status(422).json({ error: err })
+        }
+        User.findByIdAndUpdate(req.user._id, {
+            $pull: { following: req.body.unfollowId }
+        }, {
+            new: true
+        }).then(result => {
+            return res.json({
+                result
+            });
+        }).catch(err => {
+            return res.status(422).json({ error: err })
+        })
+    })
+}
