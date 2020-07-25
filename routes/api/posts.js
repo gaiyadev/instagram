@@ -13,7 +13,7 @@ router.post('/', auth, PostController.create_post);
     @desc      Get All post
     @access    Private
  */
-router.get('/', PostController.get_posts);
+router.get('/', auth, PostController.get_posts);
 
 /*  @route     POST api/posts/myPosts
     @desc      Get All post for a single user
