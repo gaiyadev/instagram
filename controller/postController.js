@@ -89,7 +89,7 @@ exports.comment = (req, res) => {
         postedBy: req.user._d
     };
     Post.findByIdAndUpdate(req.body.postId, {
-        $pull: { comments: comment },
+        $push: { comments: comment },
     }, {
         new: true
     }).populate("comments.postedBy", "_id, name")
