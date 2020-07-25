@@ -6,13 +6,14 @@ const Post = require('../model/post');
  * @param {*} res 
  */
 exports.create_post = (req, res) => {
-    const { title, body } = req.body;
-    if (!title || !body) return res.status(400).json({ error: 'Please all fields are required' });
+    const { title, body, photo } = req.body;
+    if (!title || !body || photo) return res.status(400).json({ error: 'Please all fields are required' });
 
     req.user.password = undefined;
     const post = new Post({
         title: title,
         body: body,
+        photo: photo,
         postedBy: req.user
     });
 
