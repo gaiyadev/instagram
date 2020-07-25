@@ -22,6 +22,14 @@ router.get('/', auth, PostController.get_posts);
  */
 router.get('/myposts', auth, PostController.my_posts);
 
+
+/*  @route     DELETE api/posts/:postId
+    @desc     Delete a post
+    @access    Private
+ */
+router.delete('/:postId', auth, PostController.delete_post);
+
+
 /*  @route     POST api/posts/like
     @desc     Like a post
     @access    Private

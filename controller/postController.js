@@ -99,3 +99,28 @@ exports.comment = (req, res) => {
             return res.json({ result });
         })
 }
+
+/**
+ * Delete a post
+ * @param {*} req 
+ * @param {*} res 
+ */
+exports.delete_post = (req, res) => {
+    Post.findOne({ _id: req.params.postId })
+        .populate("postedBy", "_id")
+        .exec((err, post) => {
+            if (err || !post) {
+                return res.status(422).json({
+                    error: err
+                });
+            }
+            if (post.postedBy._id.toString() === req.user._id.toString()) {
+                post.remove().then(result => {
+                    return res.json({
+                        result,
+                        message: 'Post deleted successfully'
+                    });
+                }).catch(err => console.log(err));
+            }
+        })
+}
