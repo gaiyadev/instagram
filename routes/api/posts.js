@@ -22,13 +22,13 @@ router.get('/', auth, PostController.get_posts);
  */
 router.get('/myposts', auth, PostController.my_posts);
 
-/*  @route     POST api/posts/likes
+/*  @route     POST api/posts/like
     @desc     Like a post
     @access    Private
  */
 router.put('/like', auth, PostController.like);
 
-/*  @route     POST api/posts/unlikes
+/*  @route     POST api/posts/unlike
     @desc     Unlike a post
     @access    Private
  */
