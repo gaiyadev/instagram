@@ -38,6 +38,8 @@ exports.sign_in = (req, res) => {
                                 email: user.email,
                                 name: user.name
                             },
+                            following: user.following,
+                            followers: user.followers,
                             message: "Sign in successfully"
                         });
                     });

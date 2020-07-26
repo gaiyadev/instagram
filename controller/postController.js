@@ -124,3 +124,17 @@ exports.delete_post = (req, res) => {
             }
         })
 }
+
+
+/**
+ *Get a user post
+ * @param {*} req
+ * @param {*} res
+ */
+exports.get_a_user_posts = (req, res) => {
+    //if postedBy in following
+    Post.find({ postedBy: { $in: req.user.following } })
+        .populate('postedBy', "_id name").then(posts => {
+            return res.json({ posts });
+        }).catch(err => console.log(err))
+}

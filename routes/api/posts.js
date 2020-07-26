@@ -49,4 +49,12 @@ router.put('/unlike', auth, PostController.unlike);
  */
 router.put('/comment', auth, PostController.comment);
 
+
+/*  @route     POST api/posts/getUserPost
+    @desc      Get All post for a single user
+    @access    Private
+ */
+router.get('/getUserPost', auth, PostController.get_a_user_posts);
+
+
 module.exports = router;
