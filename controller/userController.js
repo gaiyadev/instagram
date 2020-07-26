@@ -122,17 +122,22 @@ exports.follow = (req, res) => {
             $push: { following: req.body.followId }
         }, {
             new: true
-        }).then(result => {
-            return res.json({
-                result
-            });
-        }).catch(err => {
-            return res.status(422).json({ error: err })
-        })
+        }).select("-password")
+            .then(result => {
+                return res.json({
+                    result
+                });
+            }).catch(err => {
+                return res.status(422).json({ error: err })
+            })
     })
 }
 
-
+/**
+ * unfollow a user
+ * @param {*} req 
+ * @param {*} res 
+ */
 exports.unFollow = (req, res) => {
     User.findByIdAndUpdate(req.body.unfollowId, {
         $push: { followers: req.user._id }
@@ -146,12 +151,13 @@ exports.unFollow = (req, res) => {
             $pull: { following: req.body.unfollowId }
         }, {
             new: true
-        }).then(result => {
-            return res.json({
-                result
-            });
-        }).catch(err => {
-            return res.status(422).json({ error: err })
-        })
+        }).select("-password")
+            .then(result => {
+                return res.json({
+                    result
+                });
+            }).catch(err => {
+                return res.status(422).json({ error: err })
+            })
     })
 }
