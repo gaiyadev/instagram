@@ -51,7 +51,7 @@ router.put('/comment', auth, PostController.comment);
 
 
 /*  @route     POST api/posts/getUserPost
-    @desc      Get All post for a single user
+    @desc      Get All post for all users  folloeing
     @access    Private
  */
 router.get('/getUserPost', auth, PostController.get_a_user_posts);

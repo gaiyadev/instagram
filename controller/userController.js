@@ -87,7 +87,7 @@ exports.view_other_users_profile = (req, res) => {
     User.findOne({ _id: req.params.id }).select("-password")
         .then(user => {
             Post.find({ postedBy: req.params.id }).populate("postedBy", "_id name")
-                .exec((err, post) => {
+                .exec((err, posts) => {
                     if (err) {
                         return res.status(422).json({
                             error: err
@@ -95,7 +95,7 @@ exports.view_other_users_profile = (req, res) => {
                     }
                     return res.json({
                         user,
-                        post
+                        posts
                     });
                 })
 
@@ -117,20 +117,17 @@ exports.follow = (req, res) => {
     }, {
         new: true
     }, (err, result) => {
-        if (err) {
-            return res.status(422).json({ error: err })
-        }
+        if (err) return res.status(422).json({ error: err });
+        //else
         User.findByIdAndUpdate(req.user._id, {
             $push: { following: req.body.followId }
         }, {
             new: true
         }).select("-password")
             .then(result => {
-                return res.json({
-                    result
-                });
+                return res.json({ result });
             }).catch(err => {
-                return res.status(422).json({ error: err })
+                return res.status(422).json({ error: err });
             })
     })
 }
