@@ -34,11 +34,11 @@ const PostSchema = new mongoose.Schema({
             }
         }
     ],
-    created_at: {
-        type: Date,
-        default: Date.now
-    }
-});
+    // created_at: {
+    //     type: Date,
+    //     default: Date.now
+    // }
+}, { timestamps: true });
 
 const Post = mongoose.model('Post', PostSchema);
 module.exports = Post;

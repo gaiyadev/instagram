@@ -29,9 +29,11 @@ exports.create_post = (req, res) => {
  * @param {*} res
  */
 exports.get_posts = (req, res) => {
-    Post.find().populate('postedBy', "_id name").then(posts => {
-        return res.json({ posts });
-    }).catch(err => console.log(err))
+    Post.find().populate('postedBy', "_id name")
+        .sort('-createdAt')
+        .then(posts => {
+            return res.json({ posts });
+        }).catch(err => console.log(err))
 }
 
 /**
@@ -134,7 +136,9 @@ exports.delete_post = (req, res) => {
 exports.get_a_user_posts = (req, res) => {
     //if postedBy in following
     Post.find({ postedBy: { $in: req.user.following } })
-        .populate('postedBy', "_id name").then(posts => {
+        .populate('postedBy', "_id name")
+        .sort('-createdAt')
+        .then(posts => {
             return res.json({ posts });
         })
         .catch(err => console.log(err))
