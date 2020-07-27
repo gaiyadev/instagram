@@ -13,4 +13,4 @@ const ConnectDb = async () => {
 }
 
 ConnectDb();
-//    # "APP_DB_CONNECTION": "mongodb://localhost:27017/instagram",
+//    #  "mongodb+srv://gaiya:gaiya12@cluster0.d6n0r.mongodb.net/instagram?retryWrites=true&w=majority",
