@@ -21,6 +21,10 @@ const UserSchema = new mongoose.Schema({
         min: 4,
         max: 540
     },
+    pic: {
+        type: String,
+        default: 'https://res.cloudinary.com/gaiyadev/image/upload/v1595657219/njwvi9bluhkgg2abgs5t.png'
+    },
     followers: [
         {
             type: ObjectId,

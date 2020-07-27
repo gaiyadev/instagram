@@ -36,7 +36,8 @@ exports.sign_in = (req, res) => {
                             user: {
                                 _id: user._id,
                                 email: user.email,
-                                name: user.name
+                                name: user.name,
+                                pic: user.pic
                             },
                             following: user.following,
                             followers: user.followers,
@@ -54,7 +55,7 @@ exports.sign_in = (req, res) => {
  * @param {*} res 
  */
 exports.sign_up = (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, pic } = req.body;
     if (!name || !email || !password) {
         return res.status(400).json({
             error: 'Please all fields are required'
@@ -70,7 +71,8 @@ exports.sign_up = (req, res) => {
         const newUser = new User({
             name: name,
             email: email,
-            password: password
+            password: password,
+            pic: pic
         });
 
         User.newUser(newUser, (err, user) => {
