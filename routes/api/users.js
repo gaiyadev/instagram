@@ -35,4 +35,11 @@ router.put('/follow', auth, UserController.follow)
  */
 router.put('/unfollow', auth, UserController.unFollow)
 
+/*  @route     PUT api/users/updatepic
+    @desc      Update a user profile pics
+    @access    Private
+ */
+router.put('/updatepic', auth, UserController.update_profile_pic)
+
+
 module.exports = router;
