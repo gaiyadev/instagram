@@ -261,3 +261,20 @@ exports.new_password = (req, res) => {
         }).catch(err => console.log(err));
 
 }
+
+/**
+ *Search user
+ * @param {*} req 
+ * @param {*} res 
+ */
+exports.search_user = (req, res) => {
+    let userPattern = new RegExp("^" + req.body.query);
+    User.find({ email: { $regex: userPattern } })
+        .select("_id email")
+        .then(user => {
+            return res.json({
+                user
+            });
+        })
+        .catch(err => console.log(err));
+}

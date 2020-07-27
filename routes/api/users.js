@@ -53,4 +53,11 @@ router.post('/reset-password', UserController.user_reset_password)
  */
 router.post('/new-password', UserController.new_password)
 
+
+/*  @route     POST api/users/search-users
+    @desc      Search for a user
+    @access    Private
+ */
+router.post('/search-users', UserController.search_user)
+
 module.exports = router;

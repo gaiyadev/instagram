@@ -32,6 +32,7 @@ lastly run npm run dev for start up the client and server at a given port
 + View other users profile
 + comment on picture
 + Delete your account
++ Search User functionality
 +  E.t.c 😃
 
 ## Technologies used
