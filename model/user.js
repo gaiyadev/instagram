@@ -2,6 +2,15 @@ const mongoose = require('mongoose');
 require('../database/db');
 const bcrypt = require('bcrypt');
 const { ObjectId } = mongoose.Schema.Types;
+const nodemailer = require('nodemailer');
+const sgTransport = require('nodemailer-sendgrid-transport');
+
+
+const transporter = nodemailer.createTransport(sgTransport({
+    auth: {
+        api_key: 'api key here'
+    }
+}));
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -52,6 +61,16 @@ module.exports.newUser = (newUser, callback) => {
         if (err) throw err;
         newUser.password = hash;  //set hash password
         newUser.save(callback); //create New User
+        //send mail to mailer
+        transporter.sendMail({
+            to: newUser.email,
+            from: "no-reply@me.com",
+            subject: "Sign up success",
+            html: "<h2>Welcome to instagram</h2>"
+
+        }).then((res) => {
+            console.log('mail send successfully')
+        }).catch(err => console.log(err))
     });
 }
 
