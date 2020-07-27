@@ -28,7 +28,7 @@ lastly run npm run dev for start up the client and server at a given port
 + reset password
 + Follow/Unfollow
 + Like/Unlike
-+ Send Mails
++ Send Mails to users after sign up
 + View other users profile
 + comment on picture
 + Delete your account
@@ -41,6 +41,7 @@ lastly run npm run dev for start up the client and server at a given port
 + NodeJS     (N)
 + Cloudinary (For storing/saving videos and files to the cloud)
 + Node-sendgrid-transport
++ Materialize css
  
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

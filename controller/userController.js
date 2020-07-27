@@ -2,6 +2,17 @@ const User = require('../model/user');
 const Post = require('../model/post');
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const crypto = require('crypto');
+// const { use } = require('../routes/api/users');
+
+const nodemailer = require('nodemailer');
+const sgTransport = require('nodemailer-sendgrid-transport');
+
+const transporter = nodemailer.createTransport(sgTransport({
+    auth: {
+        api_key: 'api key here'
+    }
+}));
 
 
 /*
@@ -181,4 +192,41 @@ exports.update_profile_pic = (req, res) => {
         })
 
     }
+}
+
+/**
+ *Forgot password
+ * @param {*} req 
+ * @param {*} res 
+ */
+exports.user_reset_password = (req, res) => {
+    crypto.randomBytes(32, (err, buffer) => {
+        if (err) throw err;
+        const token = buffer.toString('hex');
+        User.findOne({ email: req.body.email })
+            .then(user => {
+                if (!user) {
+                    return res.status(422).json({
+                        error: 'No user is associated with this email'
+                    });
+                }
+                user.resetToken = token;
+                user.expiresToken = Date.now() + 360000;
+                user.save().then(result => {
+                    transporter.sendMail({
+                        to: user.email,
+                        from: 'no-reply@me.com',
+                        subject: 'Password reset',
+                        html: `<p>
+                                  You request for password reset
+                                  <h5>click this < href="http://localhost:3000/reset/${token}">link</a> to reset your password</h5>
+                        </p>`
+                    })
+                    return res.json({
+                        message: "Check your mail for link to reset your password"
+                    });
+                })
+            })
+            .catch(err => console.log(err));
+    })
 }
