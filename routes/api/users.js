@@ -42,9 +42,15 @@ router.put('/unfollow', auth, UserController.unFollow)
 router.put('/updatepic', auth, UserController.update_profile_pic)
 
 /*  @route     POST api/users/reset-password
-    @desc      Update a user password
+    @desc      Send a reset password link to a user password
     @access    Public
  */
 router.post('/reset-password', UserController.user_reset_password)
+
+/*  @route     POST api/users/new-password
+    @desc      Update a user password
+    @access    Private
+ */
+router.post('/new-password', UserController.new_password)
 
 module.exports = router;

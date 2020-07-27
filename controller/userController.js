@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const crypto = require('crypto');
 // const { use } = require('../routes/api/users');
+const bcrypt = require('bcrypt');
+
 
 const nodemailer = require('nodemailer');
 const sgTransport = require('nodemailer-sendgrid-transport');
@@ -229,4 +231,33 @@ exports.user_reset_password = (req, res) => {
             })
             .catch(err => console.log(err));
     })
+}
+
+/**
+ * Update user password
+ * @param {*} req 
+ * @param {*} res 
+ */
+exports.new_password = (req, res) => {
+    const newPassword = req.body.password;
+    const sentToken = req.body.token;
+    User.findOne({ resetToken: sentToken, expiresToken: { $gt: Date.now() } })
+        .then(user => {
+            if (!user) {
+                return res.status(422).json({
+                    error: "Try again. session ezpired"
+                });
+            }
+            bcrypt.hash(newPassword, 10).then(hashPassword => {
+                user.password = hashPassword;
+                user.resetToken = undefined;
+                user.expiresToken = undefined;
+                user.save().then(saveUser => {
+                    return res.json({
+                        message: "Password changed successfully"
+                    });
+                })
+            });
+        }).catch(err => console.log(err));
+
 }
