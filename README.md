@@ -42,7 +42,7 @@ lastly run npm run dev for start up the client and server at a given port
 + NodeJS     (N)
 + Cloudinary (For storing/saving videos and files to the cloud)
 + Nodemailer-sendgrid-transport
-+ Materialize css
++ Materialize css library
  
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
