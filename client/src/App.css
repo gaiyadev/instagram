@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
+a {
+    color: black ! important;    
+}
+
+.link {
+    color: #1565c0;   
+}
+
+.auth-card {
+    padding: 20px;
+    text-align: center;
+    max-width: 500px;
+    margin:25px auto;
+}
+
+form  label {
+        color: #1565c0;
+}
+
+#toast-container {
+    top: 30px !important;
+    right: 20px !important;
+    left: auto !important;
+}
+
+
+.title {
+    font-family: 'Grand Hotel', cursive;
+}
+
+.material-icons {
+    color: #1565c0;
+}
+.upload {
+background-color:#1565c0 ;
+}
+form button, form h5 {
+  margin: 25px 0;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly])
+{
+  border-color: #1565c0;
+  box-shadow: none;
+}
+
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.item {
+    width: 30%;
+}
+
+.profile {
+    max-width: 850px;
+    margin: 10px auto;
+}
+
+
+@media (max-width: 480px) {
+  h6 {
+      font-size: 15px;
+  }
+  h5 {
+      font-size: 15px;
+  }
+ 
+}
