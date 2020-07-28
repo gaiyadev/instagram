@@ -41,7 +41,7 @@ lastly run npm run dev for start up the client and server at a given port
 + ReactJS    (R)
 + NodeJS     (N)
 + Cloudinary (For storing/saving videos and files to the cloud)
-+ Node-sendgrid-transport
++ Nodemailer-sendgrid-transport
 + Materialize css
  
 ## Contributing
